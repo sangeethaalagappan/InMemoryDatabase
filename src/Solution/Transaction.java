@@ -3,9 +3,10 @@ package Solution;
 import java.util.*;
 
 public class Transaction {
-	/*The database consists of: 
+	/* Each transaction block of the database consists of: 
 	 * db : a primary hashmap to store key, value pairs 
 	 * valueCount : a secondary hashmap to keep count of the occurrences of values
+	 * prev : a link to the previous transaction block
 	 * */
 	HashMap<String,String> db;
 	HashMap<String,Integer> valueCount;
@@ -18,12 +19,13 @@ public class Transaction {
 		
 	}
 	
+	//Get fetches the last set value of the variable. Returns NULL if the variable has never been set or unset in the current transaction block.
 	public void get(String k){
 		
 		Transaction t = this;
 		
 	while (t!=null){
-		if (t.db.containsKey(k)){
+		if (t.db.containsKey(k) && t.db.get(k)!="NULL"){
 			System.out.println(t.db.get(k));
 			return;
 		} else{
@@ -39,6 +41,7 @@ public class Transaction {
 	System.out.println("NULL");	
 	}
 	
+	// Set inserts the new value for the variable in the database.
 	public void set(String k, String v){
 		if (db.containsKey(k)){
 			String prev = db.get(k);
@@ -55,6 +58,7 @@ public class Transaction {
 		}
 	}
 	
+	//Unset removes the value for the variable in the current transaction block.
 	public void unset(String k){
 		Transaction t = this;
 		while(t!=null){
