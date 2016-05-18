@@ -21,7 +21,7 @@ public class Main {
 				database.rollback();
 			}
 			else{
-				String k = null;
+			String k = null;
 			if (parsedInput.length > 1){
 				k = parsedInput[1];
 			}
@@ -36,7 +36,6 @@ public class Main {
 			} else if(action.equals("NUMEQUALTO") && parsedInput.length==2){
 				database.numEqualTo(k);
 			} 
-			
 			  else{
 				System.out.println("Unexpected input");
 			}
